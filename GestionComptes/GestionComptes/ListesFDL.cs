@@ -25,12 +25,12 @@ namespace FDLsys
         public int total_airborn { get; set; }=0;
         public int deadhead { get; set; } = 0;
 
-        public string matricule_CDB { get; set; }=string.Empty;
 
         public int Edition_number { get; set; } = 0;
         public sbyte validation { get; set; } = 0; //Ecrire à clavier un si validé 1 ou bien 0 si n'est pas encore validé
 
+        public string MatriculeId { get; set; } 
 
-       public List<Sequences> Sequences { get; set; }
+        public List<Sequences> Sequences { get; set; }
     }
 }

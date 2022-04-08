@@ -37,7 +37,7 @@ namespace FDLsys
         [JsonIgnore]
         public float uplift { get; set; }       
         public int listesfdlID { get; set; }    
-        [JsonIgnore]
+       [JsonIgnore]
         public ListesFDL listefdl { get; set; }
         
 

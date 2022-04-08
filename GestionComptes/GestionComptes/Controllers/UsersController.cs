@@ -114,7 +114,7 @@ namespace FDLsys.Controllers
 
             await _context.SaveChangesAsync();
 
-            return Ok(await _context.Users.ToListAsync());
+            return Ok(To_Update_User);
         }
         [HttpDelete("Delete a User")]
         
@@ -124,7 +124,7 @@ namespace FDLsys.Controllers
             var To_Delete_User = await _context.Users.FindAsync(request.Matricule);
             if (To_Delete_User == null)
             {
-                return BadRequest("Matricule String not found please verify the User name");
+                return BadRequest("Matricule String not found please verify user's matricule");
             }
              _context.Users.Remove(To_Delete_User);
             await _context.SaveChangesAsync();

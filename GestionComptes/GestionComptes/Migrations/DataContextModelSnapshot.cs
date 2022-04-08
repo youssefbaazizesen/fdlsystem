@@ -45,6 +45,10 @@ namespace FDLsys.Migrations
                     b.Property<int>("Fnight_time")
                         .HasColumnType("int");
 
+                    b.Property<string>("MatriculeId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("airplane_reg")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -55,10 +59,6 @@ namespace FDLsys.Migrations
 
                     b.Property<int>("deadhead")
                         .HasColumnType("int");
-
-                    b.Property<string>("matricule_CDB")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("month")
                         .HasColumnType("int");
@@ -77,7 +77,7 @@ namespace FDLsys.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("listesfdl");
+                    b.ToTable("listesfdl", (string)null);
                 });
 
             modelBuilder.Entity("FDLsys.Sequences", b =>
@@ -146,7 +146,7 @@ namespace FDLsys.Migrations
 
                     b.HasIndex("listesfdlID");
 
-                    b.ToTable("Sequences");
+                    b.ToTable("Sequences", (string)null);
                 });
 
             modelBuilder.Entity("FDLsys.Users", b =>
@@ -172,7 +172,7 @@ namespace FDLsys.Migrations
 
                     b.HasKey("Matricule");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("FDLsys.Sequences", b =>

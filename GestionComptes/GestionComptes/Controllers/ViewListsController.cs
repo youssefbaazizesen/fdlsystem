@@ -28,14 +28,7 @@ namespace FDLsys.Controllers
                 return BadRequest("list with such ID doesnt exist");
             }
             //Requette LINQ qui affiche toutes les sequences contenu dans la feuille de ligne ayant le numero "ID"
-            var seqfdl = (from f in _context.listesfdl
-                          join sq in _context.Sequences
-                          on f.Id equals sq.listefdl.Id
-                          where sq.listefdl.Id == Id
-                          select new
-                          {
-                              sq
-                          });
+            var fdl = _context.Sequences.Where(s => s.listesfdlID == Id).ToList();
 
 
 
@@ -52,7 +45,7 @@ namespace FDLsys.Controllers
 
 
 
-            return Ok(seqfdl);
+            return Ok(fdl);
         }
 
 
