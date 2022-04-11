@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Aiuf/hDidclSymCjQJRlFoveFEACLX3WhNPO2iS8MWPb9buqtIUvClwqgYunttea8Arj+Zaacrgw2Drt2iR6GQ==",
+  "dgSpecHash": "asGvnq82+lbUxicwwiPx2IN07IzGwvTeHlSl6+cYCe+LXp827tlKAYjSEMaJ1idtgPQjJzGBP8cNMBuTghPtsQ==",
   "success": true,
-  "projectFilePath": "G:\\Slow_desktop\\GestionComptes\\GestionComptes\\FDLsys.csproj",
+  "projectFilePath": "G:\\Slow_desktop\\Github\\fdlsystem\\GestionComptes\\GestionComptes\\FDLsys.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\TheBaaziz\\.nuget\\packages\\entityframework\\6.0.0\\entityframework.6.0.0.nupkg.sha512",
     "C:\\Users\\TheBaaziz\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",

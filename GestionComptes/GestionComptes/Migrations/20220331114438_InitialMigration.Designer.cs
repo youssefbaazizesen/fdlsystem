@@ -4,6 +4,7 @@ using FDLsys.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FDLsys.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220331114438_InitialMigration")]
+    partial class InitialMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,69 +23,6 @@ namespace FDLsys.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("FDLsys.Equipe", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("FlightId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("cle")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(1)");
-
-                    b.Property<string>("first_name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("fonction")
-                        .HasColumnType("int");
-
-                    b.Property<string>("last_name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FlightId");
-
-                    b.ToTable("Equipes");
-                });
-
-            modelBuilder.Entity("FDLsys.Flight", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("SequencesId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("cie")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("datevol")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("escalARR")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("escalDEP")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SequencesId")
-                        .IsUnique();
-
-                    b.ToTable("Flight");
-                });
 
             modelBuilder.Entity("FDLsys.ListesFDL", b =>
                 {
@@ -108,10 +47,6 @@ namespace FDLsys.Migrations
                     b.Property<int>("Fnight_time")
                         .HasColumnType("int");
 
-                    b.Property<string>("MatriculeId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("airplane_reg")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -122,6 +57,10 @@ namespace FDLsys.Migrations
 
                     b.Property<int>("deadhead")
                         .HasColumnType("int");
+
+                    b.Property<string>("matricule_CDB")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("month")
                         .HasColumnType("int");
@@ -184,9 +123,8 @@ namespace FDLsys.Migrations
                     b.Property<int>("bt_out_minute")
                         .HasColumnType("int");
 
-                    b.Property<string>("expected_dep_time")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("expected_dep_time")
+                        .HasColumnType("int");
 
                     b.Property<float>("fuel_at_departure")
                         .HasColumnType("real");
@@ -239,28 +177,6 @@ namespace FDLsys.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("FDLsys.Equipe", b =>
-                {
-                    b.HasOne("FDLsys.Flight", "Flight")
-                        .WithMany()
-                        .HasForeignKey("FlightId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Flight");
-                });
-
-            modelBuilder.Entity("FDLsys.Flight", b =>
-                {
-                    b.HasOne("FDLsys.Sequences", "Sequences")
-                        .WithOne("Flight")
-                        .HasForeignKey("FDLsys.Flight", "SequencesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Sequences");
-                });
-
             modelBuilder.Entity("FDLsys.Sequences", b =>
                 {
                     b.HasOne("FDLsys.ListesFDL", "listefdl")
@@ -275,12 +191,6 @@ namespace FDLsys.Migrations
             modelBuilder.Entity("FDLsys.ListesFDL", b =>
                 {
                     b.Navigation("Sequences");
-                });
-
-            modelBuilder.Entity("FDLsys.Sequences", b =>
-                {
-                    b.Navigation("Flight")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

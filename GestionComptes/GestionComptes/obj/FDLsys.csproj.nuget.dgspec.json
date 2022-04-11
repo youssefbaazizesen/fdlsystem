@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "G:\\Slow_desktop\\GestionComptes\\GestionComptes\\FDLsys.csproj": {}
+    "G:\\Slow_desktop\\Github\\fdlsystem\\GestionComptes\\GestionComptes\\FDLsys.csproj": {}
   },
   "projects": {
-    "G:\\Slow_desktop\\GestionComptes\\GestionComptes\\FDLsys.csproj": {
+    "G:\\Slow_desktop\\Github\\fdlsystem\\GestionComptes\\GestionComptes\\FDLsys.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "G:\\Slow_desktop\\GestionComptes\\GestionComptes\\FDLsys.csproj",
+        "projectUniqueName": "G:\\Slow_desktop\\Github\\fdlsystem\\GestionComptes\\GestionComptes\\FDLsys.csproj",
         "projectName": "FDLsys",
-        "projectPath": "G:\\Slow_desktop\\GestionComptes\\GestionComptes\\FDLsys.csproj",
+        "projectPath": "G:\\Slow_desktop\\Github\\fdlsystem\\GestionComptes\\GestionComptes\\FDLsys.csproj",
         "packagesPath": "C:\\Users\\TheBaaziz\\.nuget\\packages\\",
-        "outputPath": "G:\\Slow_desktop\\GestionComptes\\GestionComptes\\obj\\",
+        "outputPath": "G:\\Slow_desktop\\Github\\fdlsystem\\GestionComptes\\GestionComptes\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\TheBaaziz\\AppData\\Roaming\\NuGet\\NuGet.Config",

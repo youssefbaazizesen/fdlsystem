@@ -55,6 +55,7 @@ namespace FDLsys.Controllers
                 fuel_at_departure = request.remaining_fuel_from_previous + request.added_fuel,
                 used_fuel = (request.remaining_fuel + request.added_fuel) - request.remaining_fuel,
                 uplift = (float)(request.added_fuel * 0.8), //a liter of kerosen is about 0.8 kilogram
+                
                 listefdl = fdl
 
             };

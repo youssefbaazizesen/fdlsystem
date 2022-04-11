@@ -5,7 +5,7 @@
         //les données à saisir par clavier
        
 
-        public int expected_dep_time { get; set; }
+        public string expected_dep_time { get; set; }
 
         //Block time
         public int bt_in_minute { get; set; }
@@ -24,6 +24,8 @@
         public float added_fuel { get; set; }
         public float remaining_fuel { get; set; } 
     
-        public int listesfdlId { get; set; } = 1;
+        
+
+        public int listesfdlId { get; set; } 
     }
 }

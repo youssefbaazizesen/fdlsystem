@@ -11,7 +11,7 @@ namespace FDLsys
 
         //JSON IGNORED DATA ARE CALCULATED IN THE CONTROLLER AND ARE NOT INPUT FROM USER.
 
-        public int expected_dep_time { get; set; }
+        public string expected_dep_time { get; set; }
         public int bt_in_minute { get; set; }
         public int bt_in_hour { get; set; }
         public int bt_out_minute { get; set; }
@@ -40,6 +40,6 @@ namespace FDLsys
        [JsonIgnore]
         public ListesFDL listefdl { get; set; }
         
-
+        public Flight Flight { get; set; }
     }
 }
