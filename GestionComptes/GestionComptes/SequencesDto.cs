@@ -27,5 +27,6 @@
         
 
         public int listesfdlId { get; set; } 
+        public int flightId { get; set; } 
     }
 }

@@ -29,7 +29,10 @@ namespace FDLsys.Migrations
 
                     b.Property<string>("FlightId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("FlightId1")
+                        .HasColumnType("int");
 
                     b.Property<string>("cle")
                         .IsRequired()
@@ -48,18 +51,18 @@ namespace FDLsys.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FlightId");
+                    b.HasIndex("FlightId1");
 
                     b.ToTable("Equipes");
                 });
 
             modelBuilder.Entity("FDLsys.Flight", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("SequencesId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("cie")
                         .IsRequired()
@@ -78,9 +81,6 @@ namespace FDLsys.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("SequencesId")
-                        .IsUnique();
 
                     b.ToTable("Flight");
                 });
@@ -151,6 +151,9 @@ namespace FDLsys.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int>("FlightId")
+                        .HasColumnType("int");
+
                     b.Property<int>("ab_off_hour")
                         .HasColumnType("int");
 
@@ -208,6 +211,8 @@ namespace FDLsys.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("FlightId");
+
                     b.HasIndex("listesfdlID");
 
                     b.ToTable("Sequences");
@@ -243,31 +248,28 @@ namespace FDLsys.Migrations
                 {
                     b.HasOne("FDLsys.Flight", "Flight")
                         .WithMany()
-                        .HasForeignKey("FlightId")
+                        .HasForeignKey("FlightId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Flight");
                 });
 
-            modelBuilder.Entity("FDLsys.Flight", b =>
+            modelBuilder.Entity("FDLsys.Sequences", b =>
                 {
-                    b.HasOne("FDLsys.Sequences", "Sequences")
-                        .WithOne("Flight")
-                        .HasForeignKey("FDLsys.Flight", "SequencesId")
+                    b.HasOne("FDLsys.Flight", "Flight")
+                        .WithMany()
+                        .HasForeignKey("FlightId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Sequences");
-                });
-
-            modelBuilder.Entity("FDLsys.Sequences", b =>
-                {
                     b.HasOne("FDLsys.ListesFDL", "listefdl")
                         .WithMany("Sequences")
                         .HasForeignKey("listesfdlID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Flight");
 
                     b.Navigation("listefdl");
                 });
@@ -275,12 +277,6 @@ namespace FDLsys.Migrations
             modelBuilder.Entity("FDLsys.ListesFDL", b =>
                 {
                     b.Navigation("Sequences");
-                });
-
-            modelBuilder.Entity("FDLsys.Sequences", b =>
-                {
-                    b.Navigation("Flight")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

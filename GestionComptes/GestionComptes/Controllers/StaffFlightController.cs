@@ -1,7 +1,7 @@
 ﻿using FDLsys.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-/*
+
 namespace FDLsys.Controllers
 {
     [Route("api/[controller]")]
@@ -19,10 +19,19 @@ namespace FDLsys.Controllers
         [HttpPost("Import")]
         public async Task<ActionResult<Flight>> importflights(Flight request)
         {
-            var seq = await _context.listesfdl.FindAsync(request.SequencesId);
-            if (seq == null)
-                return BadRequest("List with such number was not found");
-        }
 
+            var imported_flight = new Flight();
+
+            imported_flight.cie = request.cie;
+            imported_flight.datevol = request.datevol;
+            imported_flight.escalARR = request.escalARR;
+            imported_flight.escalDEP = request.escalDEP;
+                
+            
+            _context.Flight.Add(imported_flight);
+           await _context.SaveChangesAsync();
+            return Ok(imported_flight);
+        }
+        
     }
-}*/
+}

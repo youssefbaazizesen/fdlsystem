@@ -31,6 +31,9 @@ namespace FDLsys.Controllers
             var fdl = await _context.listesfdl.FindAsync(request.listesfdlId);
             if(fdl == null)         
                 return BadRequest("List with such number was not found");
+            var flight = await _context.Flight.FindAsync(request.flightId);
+            if(flight == null)         
+                return BadRequest("Flight with such number was not found");
 
             var nouvelleSequence = new Sequences
             {
@@ -56,8 +59,8 @@ namespace FDLsys.Controllers
                 used_fuel = (request.remaining_fuel + request.added_fuel) - request.remaining_fuel,
                 uplift = (float)(request.added_fuel * 0.8), //a liter of kerosen is about 0.8 kilogram
                 
-                listefdl = fdl
-
+                listefdl = fdl,
+                Flight=flight
             };
 
             _context.Sequences.Add(nouvelleSequence);
