@@ -5,10 +5,43 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FDLsys.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class Create : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Equipes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    cle = table.Column<string>(type: "nvarchar(1)", nullable: false),
+                    fonction = table.Column<int>(type: "int", nullable: false),
+                    first_name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    last_name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FlightId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Equipes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Flight",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    cie = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    datevol = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    escalDEP = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    escalARR = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Flight", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "listesfdl",
                 columns: table => new
@@ -26,9 +59,9 @@ namespace FDLsys.Migrations
                     total_block = table.Column<int>(type: "int", nullable: false),
                     total_airborn = table.Column<int>(type: "int", nullable: false),
                     deadhead = table.Column<int>(type: "int", nullable: false),
-                    matricule_CDB = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Edition_number = table.Column<int>(type: "int", nullable: false),
-                    validation = table.Column<short>(type: "smallint", nullable: false)
+                    validation = table.Column<short>(type: "smallint", nullable: false),
+                    MatriculeId = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -56,7 +89,7 @@ namespace FDLsys.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    expected_dep_time = table.Column<int>(type: "int", nullable: false),
+                    expected_dep_time = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     bt_in_minute = table.Column<int>(type: "int", nullable: false),
                     bt_in_hour = table.Column<int>(type: "int", nullable: false),
                     bt_out_minute = table.Column<int>(type: "int", nullable: false),
@@ -73,11 +106,18 @@ namespace FDLsys.Migrations
                     fuel_at_departure = table.Column<float>(type: "real", nullable: false),
                     used_fuel = table.Column<float>(type: "real", nullable: false),
                     uplift = table.Column<float>(type: "real", nullable: false),
-                    listesfdlID = table.Column<int>(type: "int", nullable: false)
+                    listesfdlID = table.Column<int>(type: "int", nullable: false),
+                    FlightId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Sequences", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Sequences_Flight_FlightId",
+                        column: x => x.FlightId,
+                        principalTable: "Flight",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Sequences_listesfdl_listesfdlID",
                         column: x => x.listesfdlID,
@@ -85,6 +125,11 @@ namespace FDLsys.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Sequences_FlightId",
+                table: "Sequences",
+                column: "FlightId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Sequences_listesfdlID",
@@ -95,10 +140,16 @@ namespace FDLsys.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Equipes");
+
+            migrationBuilder.DropTable(
                 name: "Sequences");
 
             migrationBuilder.DropTable(
                 name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "Flight");
 
             migrationBuilder.DropTable(
                 name: "listesfdl");

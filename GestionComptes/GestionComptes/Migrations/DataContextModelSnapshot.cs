@@ -24,14 +24,13 @@ namespace FDLsys.Migrations
 
             modelBuilder.Entity("FDLsys.Equipe", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                    b.Property<string>("FlightId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("FlightId1")
+                    b.Property<int>("FlightId")
                         .HasColumnType("int");
 
                     b.Property<string>("cle")
@@ -50,8 +49,6 @@ namespace FDLsys.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("FlightId1");
 
                     b.ToTable("Equipes");
                 });
@@ -242,17 +239,6 @@ namespace FDLsys.Migrations
                     b.HasKey("Matricule");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("FDLsys.Equipe", b =>
-                {
-                    b.HasOne("FDLsys.Flight", "Flight")
-                        .WithMany()
-                        .HasForeignKey("FlightId1")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Flight");
                 });
 
             modelBuilder.Entity("FDLsys.Sequences", b =>

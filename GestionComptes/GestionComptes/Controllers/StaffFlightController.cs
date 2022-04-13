@@ -16,7 +16,7 @@ namespace FDLsys.Controllers
             _configuration = configuration;
             _context = context;
         }
-        [HttpPost("Import")]
+        [HttpPost("Importflight")]
         public async Task<ActionResult<Flight>> importflights(Flight request)
         {
 
@@ -32,6 +32,43 @@ namespace FDLsys.Controllers
            await _context.SaveChangesAsync();
             return Ok(imported_flight);
         }
-        
+        [HttpPut("modifyflight")]
+        public async Task<ActionResult<Flight>> modifyexistantflight(Flight request)
+        {
+            var flt = _context.Flight.FindAsync(request.Id);
+            if (flt == null)
+                return BadRequest("Flight does not exist");
+           var to_change_flight=new Flight();
+            to_change_flight.Id = request.Id;
+            to_change_flight.cie = request.cie;
+            to_change_flight.datevol = request.datevol;
+            to_change_flight.escalARR = request.escalARR;
+            to_change_flight.escalDEP = request.escalDEP;
+            
+            await _context.SaveChangesAsync();
+            return Ok(to_change_flight);
+        }
+
+        [HttpPost("importstaff")]
+        public async Task<ActionResult<Equipe>>importstaff(Equipe request)
+        {
+            
+            var staff = new Equipe();
+            staff.cle=request.cle;
+            staff.first_name=request.first_name;
+            staff.last_name=request.last_name;
+            staff.fonction=request.fonction;
+            
+            staff.FlightId=request.FlightId;
+            
+
+            _context.Equipes.Add(staff);
+            await _context.SaveChangesAsync();
+            return Ok(staff);
+
+        }
     }
+
+
+
 }

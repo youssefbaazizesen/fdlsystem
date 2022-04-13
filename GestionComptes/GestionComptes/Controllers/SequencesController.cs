@@ -18,10 +18,10 @@ namespace FDLsys.Controllers
             _context = context;
         }
         [HttpGet ("Get FDL ")]
-        public async Task<ActionResult<List<Sequences>>> Get(int nfdl)
+        public async Task<ActionResult<List<Sequences>>> Get(int numseq)
         {
-            var fdl = await _context.Sequences.Where(c => c.listefdl.Id == nfdl).ToListAsync();
-            return fdl;
+            var seq = await _context.Sequences.Where(c => c.Id == numseq).ToListAsync();
+            return Ok(seq);
         }
 
         [HttpPost("rempliresequences")]
