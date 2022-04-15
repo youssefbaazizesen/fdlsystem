@@ -1,6 +1,7 @@
 ﻿using FDLsys.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -77,7 +78,7 @@ namespace FDLsys.Controllers
             to_update_list.MatriculeId = User?.Identity?.Name;
            
             //Appel au sequenceS relié a cette feuille de ligne (ayant la clé etrangere = NFDL)
-            to_update_list.Sequences=_context.Sequences.Where(s => s.listesfdlID==request.NFDL).ToList();
+            to_update_list.Sequences=_context.Sequences.Include(s =>s.Flight).Where(s => s.listesfdlID==request.NFDL).ToList();
 
             //Calcule de somme des temps airborn et block apres un parcour dans la liste des sequences
             to_update_list.total_airborn = to_update_list.Sequences.Sum(s => s.airborn_time);

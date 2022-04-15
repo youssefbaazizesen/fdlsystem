@@ -1,7 +1,7 @@
 ﻿using FDLsys.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace FDLsys.Controllers
 {
@@ -28,7 +28,7 @@ namespace FDLsys.Controllers
                 return BadRequest("list with such ID doesnt exist");
             }
             //Requette LINQ qui affiche toutes les sequences contenu dans la feuille de ligne ayant le numero "ID"
-            var fdl = _context.Sequences.Where(s => s.listesfdlID == Id).ToList();
+            var fdl = _context.Sequences.Include(fl =>fl.Flight).Where(s => s.listesfdlID == Id).ToList();
 
 
 

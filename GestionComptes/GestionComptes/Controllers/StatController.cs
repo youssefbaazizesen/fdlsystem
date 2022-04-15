@@ -1,8 +1,7 @@
-﻿/*using FDLsys.Data;
+﻿using FDLsys.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using Microsoft.EntityFrameworkCore;
 
 namespace FDLsys.Controllers
 {
@@ -23,49 +22,50 @@ namespace FDLsys.Controllers
         public async Task<ActionResult<ListesFDL>> OverAllBlockAVG()
         {
             //Parcour dans la table listefdl
-            var AVGblock = _context.listesfdl.Average(fdl => fdl.total_block);
-            return Ok(AVGblock);
-        }
+            var AVGblock = await _context.listesfdl.AverageAsync(fdl => fdl.total_block);
+            return Ok(AVGblock.ToString());
 
+        }
+      
         [HttpGet("Average over all airborn time"), Authorize(Roles = "CDB,Admin")]
         public async Task<ActionResult<ListesFDL>> OverAllAirbornAVG()
         {
             //Parcour dans la table listefdl
-            var AVGairborn = _context.listesfdl.Average(fdl => fdl.total_airborn);
-            return Ok(AVGairborn);
+            var AVGairborn = await _context.listesfdl.AverageAsync(fdl => fdl.total_airborn);
+            return Ok(AVGairborn.ToString());
         }
-
+        
         [HttpGet("Average over all left over fuel"), Authorize(Roles = "CDB,Admin")]
         public async Task<ActionResult<ListesFDL>> OverAllleftoverfuelavg()
         {
             //Parcour dans la table listefdl
-            var AVGleftoverfuel = _context.Sequences.Average(seq => seq.remaining_fuel_from_previous);
-            return Ok(AVGleftoverfuel);
+            var AVGleftoverfuel = await _context.Sequences.AverageAsync(seq => seq.remaining_fuel_from_previous);
+            return Ok(AVGleftoverfuel.ToString());
         }
 
         [HttpGet("Average over all remaining fuel"), Authorize(Roles = "CDB,Admin")]
         public async Task<ActionResult<ListesFDL>> OverAllremainingfuelavg()
         {
             //Parcour dans la table listefdl
-            var AVGremainingfuel = _context.Sequences.Average(seq => seq.remaining_fuel);
-            return Ok(AVGremainingfuel);
+            var AVGremainingfuel = await _context.Sequences.AverageAsync(seq => seq.remaining_fuel);
+            return Ok(AVGremainingfuel.ToString());
         }
-
+        
         [HttpGet("Average over all added fuel"), Authorize(Roles = "CDB,Admin")]
         public async Task<ActionResult<ListesFDL>> OverAlladdedfuelavg()
         {
             //Parcour dans la table listefdl
-            var AVGaddedfuel = _context.Sequences.Average(seq => seq.added_fuel);
-            return Ok(AVGaddedfuel);
+            var AVGaddedfuel = await _context.Sequences.AverageAsync(seq => seq.added_fuel);
+            return Ok(AVGaddedfuel.ToString());
         }
 
-        [HttpGet("Average over all block time"), Authorize(Roles = "CDB,Admin")]
-        public async Task<ActionResult<ListesFDL>> OverAllfavg()
+        [HttpGet("Average over all used fuel"), Authorize(Roles = "CDB,Admin")]
+        public async Task<ActionResult<ListesFDL>> OverAllusedfuelavg()
         {
             //Parcour dans la table listefdl
-            var AVGremainingfuel = _context.Sequences.Average(seq => seq.remaining_fuel);
-            return Ok(AVGremainingfuel);
+            var AVGusedfuel = await _context.Sequences.AverageAsync(seq => seq.used_fuel);
+            return Ok(AVGusedfuel.ToString());
         }
-
+        /**/
     }
-}*/
+}

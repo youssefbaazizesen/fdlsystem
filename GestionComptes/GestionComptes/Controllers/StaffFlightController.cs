@@ -35,10 +35,9 @@ namespace FDLsys.Controllers
         [HttpPut("modifyflight")]
         public async Task<ActionResult<Flight>> modifyexistantflight(Flight request)
         {
-            var flt = _context.Flight.FindAsync(request.Id);
-            if (flt == null)
+            var to_change_flight = await _context.Flight.FindAsync(request.Id);
+            if (to_change_flight == null)
                 return BadRequest("Flight does not exist");
-           var to_change_flight=new Flight();
             to_change_flight.Id = request.Id;
             to_change_flight.cie = request.cie;
             to_change_flight.datevol = request.datevol;
@@ -63,6 +62,27 @@ namespace FDLsys.Controllers
             
 
             _context.Equipes.Add(staff);
+            await _context.SaveChangesAsync();
+            return Ok(staff);
+
+        }[HttpPut("modifystaff")]
+        public async Task<ActionResult<Equipe>>modifystaff(Equipe request)
+        {
+
+            var staff = await _context.Equipes.FindAsync(request.Id);
+            if (staff == null)
+                return BadRequest("staff member does not exist");
+
+            
+            staff.cle=request.cle;
+            staff.first_name=request.first_name;
+            staff.last_name=request.last_name;
+            staff.fonction=request.fonction;
+            
+            staff.FlightId=request.FlightId;
+            
+
+            
             await _context.SaveChangesAsync();
             return Ok(staff);
 
