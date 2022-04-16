@@ -95,7 +95,7 @@ namespace FDLsys.Controllers
         public async Task<ActionResult<List<ListesFDL>>> GetLists()
         {
             var cdbmat = User?.Identity?.Name;
-            var cdb_lists = _context.listesfdl.Where(f => f.MatriculeId == cdbmat).ToList();
+            var cdb_lists =  _context.listesfdl.Where(f => f.MatriculeId == cdbmat).ToList();
             return Ok(cdb_lists);
         }
 
