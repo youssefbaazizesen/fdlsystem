@@ -491,7 +491,131 @@ namespace FDLsys.Controllers
             return Ok(((double)await _context.listesfdl.Where(f => f.year == y).
                 SumAsync(fdl => fdl.Fnight_desert_time)).ToString());
         }
-        
+
+        //AVERAGE AND SUM PER MONTH
+
+        [HttpGet("Average block time typed month"), Authorize(Roles = "CDB,Admin")]
+        public async Task<ActionResult<ListesFDL>> Monthblocktimeavg(short y)
+        {
+            return Ok(((double)await _context.listesfdl.Where(f => f.month == y).
+                AverageAsync(fdl => fdl.total_block)).ToString());
+        }
+        [HttpGet("total block time typed month"), Authorize(Roles = "CDB,Admin")]
+        public async Task<ActionResult<ListesFDL>> Monthblocktimesum(short y)
+        {
+            return Ok(((double)await _context.listesfdl.Where(f => f.month == y).
+                SumAsync(fdl => fdl.total_block)).ToString());
+        }
+        [HttpGet("Average flight time typed month"), Authorize(Roles = "CDB,Admin")]
+        public async Task<ActionResult<ListesFDL>> Monthflighttimeavg(short y)
+        {
+            return Ok(((double)await _context.listesfdl.Where(f => f.month == y).
+                AverageAsync(fdl => fdl.total_airborn)).ToString());
+        }
+        [HttpGet("total flight time typed month"), Authorize(Roles = "CDB,Admin")]
+        public async Task<ActionResult<ListesFDL>> Monthflighttimesum(short y)
+        {
+            return Ok(((double)await _context.listesfdl.Where(f => f.month == y).
+                SumAsync(fdl => fdl.total_airborn)).ToString());
+        }
+        [HttpGet("Average leftover typed month"), Authorize(Roles = "CDB,Admin")]
+        public async Task<ActionResult<ListesFDL>> Monthleftoveravg(short y)
+        {
+            return Ok(((float)await _context.Sequences.Where(s => s.listefdl.month == y)
+                .AverageAsync(s => s.remaining_fuel_from_previous)).ToString());
+        }
+        [HttpGet("Total leftover typed month"), Authorize(Roles = "CDB,Admin")]
+        public async Task<ActionResult<ListesFDL>> Monthleftoversum(short y)
+        {
+            return Ok(((float)await _context.Sequences.Where(s => s.listefdl.month == y)
+                .SumAsync(s => s.remaining_fuel_from_previous)).ToString());
+        }
+        [HttpGet("Average used fuel typed month"), Authorize(Roles = "CDB,Admin")]
+        public async Task<ActionResult<ListesFDL>> MonthusedFavg(short y)
+        {
+            return Ok(((float)await _context.Sequences.Where(s => s.listefdl.month == y)
+                .AverageAsync(s => s.used_fuel)).ToString());
+        }
+        [HttpGet("Total used fuel typed month"), Authorize(Roles = "CDB,Admin")]
+        public async Task<ActionResult<ListesFDL>> MonthusedFsum(short y)
+        {
+            return Ok(((float)await _context.Sequences.Where(s => s.listefdl.month == y)
+                .SumAsync(s => s.used_fuel)).ToString());
+        }
+        [HttpGet("Average remaining fuel typed month"), Authorize(Roles = "CDB,Admin")]
+        public async Task<ActionResult<ListesFDL>> MonthremainFavg(short y)
+        {
+            return Ok(((float)await _context.Sequences.Where(s => s.listefdl.month == y)
+                .AverageAsync(s => s.remaining_fuel)).ToString());
+        }
+        [HttpGet("Total fuel at departure  typed month"), Authorize(Roles = "CDB,Admin")]
+        public async Task<ActionResult<ListesFDL>> MonthremainFsum(short y)
+        {
+            return Ok(((float)await _context.Sequences.Where(s => s.listefdl.month == y)
+                .SumAsync(s => s.remaining_fuel)).ToString());
+        }
+        [HttpGet("Average uplift typed month"), Authorize(Roles = "CDB,Admin")]
+        public async Task<ActionResult<ListesFDL>> Monthupliftavg(short y)
+        {
+            return Ok(((float)await _context.Sequences.Where(s => s.listefdl.month == y)
+                .AverageAsync(s => s.uplift)).ToString());
+        }
+        [HttpGet("Total uplift  typed month"), Authorize(Roles = "CDB,Admin")]
+        public async Task<ActionResult<ListesFDL>> Monthupliftsum(short y)
+        {
+            return Ok(((float)await _context.Sequences.Where(s => s.listefdl.month == y)
+                .SumAsync(s => s.uplift)).ToString());
+        }
+        [HttpGet("Average day time typed month"), Authorize(Roles = "CDB,Admin")]
+        public async Task<ActionResult<ListesFDL>> Monthdaytimeavg(short y)
+        {
+            return Ok(((double)await _context.listesfdl.Where(f => f.month == y).
+                AverageAsync(fdl => fdl.FDay_time)).ToString());
+        }
+        [HttpGet("total day time typed month"), Authorize(Roles = "CDB,Admin")]
+        public async Task<ActionResult<ListesFDL>> Monthdaytimesum(short y)
+        {
+            return Ok(((double)await _context.listesfdl.Where(f => f.month == y).
+                SumAsync(fdl => fdl.FDay_time)).ToString());
+        }
+        [HttpGet("Average night time typed month"), Authorize(Roles = "CDB,Admin")]
+        public async Task<ActionResult<ListesFDL>> Monthnighttimeavg(short y)
+        {
+            return Ok(((double)await _context.listesfdl.Where(f => f.month == y).
+                AverageAsync(fdl => fdl.Fnight_time)).ToString());
+        }
+        [HttpGet("total night time typed month"), Authorize(Roles = "CDB,Admin")]
+        public async Task<ActionResult<ListesFDL>> Monthnighttimesum(short y)
+        {
+            return Ok(((double)await _context.listesfdl.Where(f => f.month == y).
+                SumAsync(fdl => fdl.Fnight_time)).ToString());
+        }
+        [HttpGet("Average day desert time typed month"), Authorize(Roles = "CDB,Admin")]
+        public async Task<ActionResult<ListesFDL>> Monthdaydtimeavg(short y)
+        {
+            return Ok(((double)await _context.listesfdl.Where(f => f.month == y).
+                AverageAsync(fdl => fdl.FDay_desert_time)).ToString());
+        }
+        [HttpGet("total day desert time typed month"), Authorize(Roles = "CDB,Admin")]
+        public async Task<ActionResult<ListesFDL>> Monthdaydtimesum(short y)
+        {
+            return Ok(((double)await _context.listesfdl.Where(f => f.month == y).
+                SumAsync(fdl => fdl.FDay_desert_time)).ToString());
+        }
+        [HttpGet("Average night desert time typed month"), Authorize(Roles = "CDB,Admin")]
+        public async Task<ActionResult<ListesFDL>> Monthnightdtimeavg(short y)
+        {
+            return Ok(((double)await _context.listesfdl.Where(f => f.month == y).
+                AverageAsync(fdl => fdl.Fnight_desert_time)).ToString());
+        }
+        [HttpGet("total night desert time typed month"), Authorize(Roles = "CDB,Admin")]
+        public async Task<ActionResult<ListesFDL>> Monthnightdtimesum(short y)
+        {
+            return Ok(((double)await _context.listesfdl.Where(f => f.month == y).
+                SumAsync(fdl => fdl.Fnight_desert_time)).ToString());
+        }
+
+
         /**/
     }
 }
