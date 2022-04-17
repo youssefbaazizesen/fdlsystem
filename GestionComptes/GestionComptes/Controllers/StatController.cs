@@ -194,15 +194,159 @@ namespace FDLsys.Controllers
             return Ok(stat_value.ToString());
         }
 
-        //AVERAGE PER LOGGED IN PILOT
+        //AVERAGE AND SUM PER LOGGED IN PILOT
         [HttpGet("Average block time for logged pilot"), Authorize(Roles = "CDB,Admin")]
         public async Task<ActionResult<ListesFDL>> PilotBlockavg()
         {
-            var mat = User?.Identity?.Name;
-            var stat_value= await _context.listesfdl.Where(f => f.MatriculeId== mat).AverageAsync(fdl => fdl.total_block);
-            return Ok(stat_value.ToString());
+            string? mat = User?.Identity?.Name;
+            return Ok(((double)await _context.listesfdl.Where(f => f.MatriculeId == mat).
+                AverageAsync(fdl => fdl.total_block)).ToString());
 
         }
+        [HttpGet("Average airborn time for logged pilot"), Authorize(Roles = "CDB,Admin")]
+        public async Task<ActionResult<ListesFDL>> Pilotairbornavg()
+        {
+            string? mat = User?.Identity?.Name;
+            return Ok(((double)await _context.listesfdl.Where(f => f.MatriculeId == mat).
+                AverageAsync(fdl => fdl.total_airborn)).ToString());
+        }
+        [HttpGet("Total block time for logged pilot"), Authorize(Roles = "CDB,Admin")]
+        public async Task<ActionResult<ListesFDL>> PilotBlocksum()
+        {
+            string? mat = User?.Identity?.Name;
+            return Ok((await _context.listesfdl.Where(f => f.MatriculeId == mat).
+                SumAsync(fdl => fdl.total_block)).ToString());
+
+        }
+        [HttpGet("Total airborn time for logged pilot"), Authorize(Roles = "CDB,Admin")]
+        public async Task<ActionResult<ListesFDL>> Pilotairbornsum()
+        {
+            string? mat = User?.Identity?.Name;
+            return Ok((await _context.listesfdl.Where(f => f.MatriculeId == mat).
+                SumAsync(fdl => fdl.total_airborn)).ToString());
+
+        }
+        [HttpGet("Average left over fuel for logged pilot"), Authorize(Roles = "CDB,Admin")]
+        public async Task<ActionResult<ListesFDL>> Pilotleftoveravg()
+        {
+            string? mat = User?.Identity?.Name;
+            return Ok(((float)await _context.Sequences
+                .Where(s => s.listefdl.MatriculeId == mat).AverageAsync(s => s.remaining_fuel_from_previous)).ToString());
+
+        }
+
+        [HttpGet("Total left over fuel for logged pilot"), Authorize(Roles = "CDB,Admin")]
+        public async Task<ActionResult<ListesFDL>> Pilotleftoversum()
+        {
+            string? mat = User?.Identity?.Name;
+            return Ok(((float)await _context.Sequences.Where(s => s.listefdl.MatriculeId == mat)
+                .SumAsync(s => s.remaining_fuel_from_previous)).ToString());
+
+        }
+        [HttpGet("Average added fuel for logged pilot"), Authorize(Roles = "CDB,Admin")]
+        public async Task<ActionResult<ListesFDL>> Pilotaddedfavg()
+        {
+            string? mat = User?.Identity?.Name;
+            return Ok(((float)await _context.Sequences.Where(s => s.listefdl.MatriculeId == mat).
+                AverageAsync(s => s.added_fuel)).ToString());
+
+        }
+
+        [HttpGet("Total added fuel for logged pilot"), Authorize(Roles = "CDB,Admin")]
+        public async Task<ActionResult<ListesFDL>> Pilotaddedfsum()
+        {
+            string? mat = User?.Identity?.Name;
+            return Ok(((float)await _context.Sequences.Where(s => s.listefdl.MatriculeId == mat).
+                SumAsync(s => s.added_fuel)).ToString());
+
+        }
+        [HttpGet("Average fuel at departure for logged pilot"), Authorize(Roles = "CDB,Admin")]
+        public async Task<ActionResult<ListesFDL>> PilotFatDepavg()
+        {
+            string? mat = User?.Identity?.Name;
+
+            return Ok(((float)await _context.Sequences.Where(s => s.listefdl.MatriculeId == mat)
+                .AverageAsync(s => s.fuel_at_departure)).ToString());
+
+        }
+
+        [HttpGet("Total fuel at departure  for logged pilot"), Authorize(Roles = "CDB,Admin")]
+        public async Task<ActionResult<ListesFDL>> PilotFatdepsum()
+        {
+            string? mat = User?.Identity?.Name;
+            return Ok(((float)await _context.Sequences.Where(s => s.listefdl.MatriculeId == mat)
+                .SumAsync(s => s.fuel_at_departure)).ToString());
+
+        }
+        [HttpGet("Average remaining fuel for logged pilot"), Authorize(Roles = "CDB,Admin")]
+        public async Task<ActionResult<ListesFDL>> PilotremainFavg()
+        {
+            string? mat = User?.Identity?.Name;
+
+            return Ok(((float)await _context.Sequences.Where(s => s.listefdl.MatriculeId == mat)
+                .AverageAsync(s => s.remaining_fuel)).ToString());
+
+        }
+
+        [HttpGet("Total fuel at departure  for logged pilot"), Authorize(Roles = "CDB,Admin")]
+        public async Task<ActionResult<ListesFDL>> PilotremainFsum()
+        {
+            string? mat = User?.Identity?.Name;
+            return Ok(((float)await _context.Sequences.Where(s => s.listefdl.MatriculeId == mat)
+                .SumAsync(s => s.remaining_fuel)).ToString());
+
+        }
+        [HttpGet("Average fuel at departure for logged pilot"), Authorize(Roles = "CDB,Admin")]
+        public async Task<ActionResult<ListesFDL>> PilotusedFavg()
+        {
+            string? mat = User?.Identity?.Name;
+
+            return Ok(((float)await _context.Sequences.Where(s => s.listefdl.MatriculeId == mat)
+                .AverageAsync(s => s.used_fuel)).ToString());
+
+        }
+
+        [HttpGet("Total fuel at departure  for logged pilot"), Authorize(Roles = "CDB,Admin")]
+        public async Task<ActionResult<ListesFDL>> PilotusedFsum()
+        {
+            string? mat = User?.Identity?.Name;
+            return Ok(((float)await _context.Sequences.Where(s => s.listefdl.MatriculeId == mat)
+                .SumAsync(s => s.used_fuel)).ToString());
+
+        }
+        [HttpGet("Average uplift for logged pilot"), Authorize(Roles = "CDB,Admin")]
+        public async Task<ActionResult<ListesFDL>> Pilotupliftavg()
+        {
+            string? mat = User?.Identity?.Name;
+            return Ok(((float)await _context.Sequences.Where(s => s.listefdl.MatriculeId == mat)
+                .AverageAsync(s => s.uplift)).ToString());
+
+        }
+
+        [HttpGet("Total uplift  for logged pilot"), Authorize(Roles = "CDB,Admin")]
+        public async Task<ActionResult<ListesFDL>> Pilotupliftsum()
+        {
+            string? mat = User?.Identity?.Name;
+            return Ok(((float)await _context.Sequences.Where(s => s.listefdl.MatriculeId == mat)
+                .SumAsync(s => s.uplift)).ToString());
+
+        }
+        [HttpGet("Average day time for logged pilot"), Authorize(Roles = "CDB,Admin")]
+        public async Task<ActionResult<ListesFDL>> Pilotdaytimeavg()
+        {
+            string? mat = User?.Identity?.Name;
+            return Ok(((double)await _context.listesfdl.Where(f => f.MatriculeId == mat).
+                AverageAsync(fdl => fdl.total_block)).ToString());
+
+        }
+        [HttpGet("Average night time for logged pilot"), Authorize(Roles = "CDB,Admin")]
+        public async Task<ActionResult<ListesFDL>> Pilotdaytimesum()
+        {
+            string? mat = User?.Identity?.Name;
+            return Ok(((double)await _context.listesfdl.Where(f => f.MatriculeId == mat).
+                AverageAsync(fdl => fdl.total_airborn)).ToString());
+        }
+
 
 
         /**/
