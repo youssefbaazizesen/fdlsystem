@@ -371,51 +371,122 @@ namespace FDLsys.Controllers
 
         //AVERAGE AND SUM PER TYPED YEAR
 
-
+        [HttpGet("Average block time typed year"), Authorize(Roles = "CDB,Admin")]
+        public async Task<ActionResult<ListesFDL>> Yearblocktimeavg(short y)
+        {
+            return Ok(((double)await _context.listesfdl.Where(f => f.year == y).
+                AverageAsync(fdl => fdl.total_block)).ToString());
+        }
+        [HttpGet("total block time typed year"), Authorize(Roles = "CDB,Admin")]
+        public async Task<ActionResult<ListesFDL>> Yearblocktimesum(short y)
+        {
+            return Ok(((double)await _context.listesfdl.Where(f => f.year == y).
+                SumAsync(fdl => fdl.total_block)).ToString());
+        }
+        [HttpGet("Average flight time typed year"), Authorize(Roles = "CDB,Admin")]
+        public async Task<ActionResult<ListesFDL>> Yearflighttimeavg(short y)
+        {
+            return Ok(((double)await _context.listesfdl.Where(f => f.year == y).
+                AverageAsync(fdl => fdl.total_airborn)).ToString());
+        }
+        [HttpGet("total flight time typed year"), Authorize(Roles = "CDB,Admin")]
+        public async Task<ActionResult<ListesFDL>> Yearflighttimesum(short y)
+        {
+            return Ok(((double)await _context.listesfdl.Where(f => f.year == y).
+                SumAsync(fdl => fdl.total_airborn)).ToString());
+        }
+        [HttpGet("Average leftover typed year"), Authorize(Roles = "CDB,Admin")]
+        public async Task<ActionResult<ListesFDL>> Yearleftoveravg(short y)
+        {
+            return Ok(((float)await _context.Sequences.Where(s => s.listefdl.year == y)
+                .AverageAsync(s => s.remaining_fuel_from_previous)).ToString());
+        }
+        [HttpGet("Total leftover typed year"), Authorize(Roles = "CDB,Admin")]
+        public async Task<ActionResult<ListesFDL>> Yearleftoversum(short y)
+        {
+            return Ok(((float)await _context.Sequences.Where(s => s.listefdl.year == y)
+                .SumAsync(s => s.remaining_fuel_from_previous)).ToString());
+        }
+        [HttpGet("Average used fuel typed year"), Authorize(Roles = "CDB,Admin")]
+        public async Task<ActionResult<ListesFDL>> YearusedFavg(short y)
+        {
+            return Ok(((float)await _context.Sequences.Where(s => s.listefdl.year == y)
+                .AverageAsync(s => s.used_fuel)).ToString());
+        }
+        [HttpGet("Total used fuel typed year"), Authorize(Roles = "CDB,Admin")]
+        public async Task<ActionResult<ListesFDL>> YearusedFsum(short y)
+        {
+            return Ok(((float)await _context.Sequences.Where(s => s.listefdl.year == y)
+                .SumAsync(s => s.used_fuel)).ToString());
+        }
+        [HttpGet("Average remaining fuel typed year"), Authorize(Roles = "CDB,Admin")]
+        public async Task<ActionResult<ListesFDL>> YearremainFavg(short y)
+        {
+            return Ok(((float)await _context.Sequences.Where(s => s.listefdl.year == y)
+                .AverageAsync(s => s.remaining_fuel)).ToString());
+        }
+        [HttpGet("Total fuel at departure  typed year"), Authorize(Roles = "CDB,Admin")]
+        public async Task<ActionResult<ListesFDL>> YearremainFsum(short y)
+        {
+            return Ok(((float)await _context.Sequences.Where(s => s.listefdl.year == y)
+                .SumAsync(s => s.remaining_fuel)).ToString());
+        }
+        [HttpGet("Average uplift typed year"), Authorize(Roles = "CDB,Admin")]
+        public async Task<ActionResult<ListesFDL>> Yearupliftavg(short y)
+        {
+            return Ok(((float)await _context.Sequences.Where(s => s.listefdl.year == y)
+                .AverageAsync(s => s.uplift)).ToString());
+        }
+        [HttpGet("Total uplift  typed year"), Authorize(Roles = "CDB,Admin")]
+        public async Task<ActionResult<ListesFDL>> Yearupliftsum(short y)
+        {
+            return Ok(((float)await _context.Sequences.Where(s => s.listefdl.year == y)
+                .SumAsync(s => s.uplift)).ToString());
+        }
         [HttpGet("Average day time typed year"), Authorize(Roles = "CDB,Admin")]
-        public async Task<ActionResult<ListesFDL>> Yeardaytimeavg(int y)
+        public async Task<ActionResult<ListesFDL>> Yeardaytimeavg(short y)
         {
             return Ok(((double)await _context.listesfdl.Where(f => f.year == y).
                 AverageAsync(fdl => fdl.FDay_time)).ToString());
         }
         [HttpGet("total day time typed year"), Authorize(Roles = "CDB,Admin")]
-        public async Task<ActionResult<ListesFDL>> Yeardaytimesum(int y)
+        public async Task<ActionResult<ListesFDL>> Yeardaytimesum(short y)
         {
             return Ok(((double)await _context.listesfdl.Where(f => f.year == y).
                 SumAsync(fdl => fdl.FDay_time)).ToString());
         }
         [HttpGet("Average night time typed year"), Authorize(Roles = "CDB,Admin")]
-        public async Task<ActionResult<ListesFDL>> Yearnighttimeavg(int y)
+        public async Task<ActionResult<ListesFDL>> Yearnighttimeavg(short y)
         {
             return Ok(((double)await _context.listesfdl.Where(f => f.year == y).
                 AverageAsync(fdl => fdl.Fnight_time)).ToString());
         }
         [HttpGet("total night time typed year"), Authorize(Roles = "CDB,Admin")]
-        public async Task<ActionResult<ListesFDL>> Yearnighttimesum(int y)
+        public async Task<ActionResult<ListesFDL>> Yearnighttimesum(short y)
         {
             return Ok(((double)await _context.listesfdl.Where(f => f.year == y).
                 SumAsync(fdl => fdl.Fnight_time)).ToString());
         }
         [HttpGet("Average day desert time typed year"), Authorize(Roles = "CDB,Admin")]
-        public async Task<ActionResult<ListesFDL>> Yeardaydtimeavg(int y)
+        public async Task<ActionResult<ListesFDL>> Yeardaydtimeavg(short y)
         {
             return Ok(((double)await _context.listesfdl.Where(f => f.year == y).
                 AverageAsync(fdl => fdl.FDay_desert_time)).ToString());
         }
         [HttpGet("total day desert time typed year"), Authorize(Roles = "CDB,Admin")]
-        public async Task<ActionResult<ListesFDL>> Yeardaydtimesum(int y)
+        public async Task<ActionResult<ListesFDL>> Yeardaydtimesum(short y)
         {
             return Ok(((double)await _context.listesfdl.Where(f => f.year == y).
                 SumAsync(fdl => fdl.FDay_desert_time)).ToString());
         }
         [HttpGet("Average night desert time typed year"), Authorize(Roles = "CDB,Admin")]
-        public async Task<ActionResult<ListesFDL>> Yearnightdtimeavg(int y)
+        public async Task<ActionResult<ListesFDL>> Yearnightdtimeavg(short y)
         {          
             return Ok(((double)await _context.listesfdl.Where(f => f.year == y).
                 AverageAsync(fdl => fdl.Fnight_desert_time)).ToString());
         }
         [HttpGet("total night desert time typed year"), Authorize(Roles = "CDB,Admin")]
-        public async Task<ActionResult<ListesFDL>> Yearnightdtimesum(int y)
+        public async Task<ActionResult<ListesFDL>> Yearnightdtimesum(short y)
         {           
             return Ok(((double)await _context.listesfdl.Where(f => f.year == y).
                 SumAsync(fdl => fdl.Fnight_desert_time)).ToString());
