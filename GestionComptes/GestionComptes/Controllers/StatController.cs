@@ -275,14 +275,14 @@ namespace FDLsys.Controllers
                 .AverageAsync(s => s.remaining_fuel)).ToString());
 
         }
-        [HttpGet("Total fuel at departure  for logged pilot"), Authorize(Roles = "CDB,Admin")]
+        [HttpGet("Total remaining  for logged pilot"), Authorize(Roles = "CDB,Admin")]
         public async Task<ActionResult<ListesFDL>> PilotremainFsum()
         {
             string? mat = User?.Identity?.Name;
             return Ok(((float)await _context.Sequences.Where(s => s.listefdl.MatriculeId == mat)
                 .SumAsync(s => s.remaining_fuel)).ToString());
         }
-        [HttpGet("Average fuel at departure for logged pilot"), Authorize(Roles = "CDB,Admin")]
+        [HttpGet("Average used for logged pilot"), Authorize(Roles = "CDB,Admin")]
         public async Task<ActionResult<ListesFDL>> PilotusedFavg()
         {
             string? mat = User?.Identity?.Name;
@@ -290,7 +290,7 @@ namespace FDLsys.Controllers
             return Ok(((float)await _context.Sequences.Where(s => s.listefdl.MatriculeId == mat)
                 .AverageAsync(s => s.used_fuel)).ToString());
         }
-        [HttpGet("Total fuel at departure  for logged pilot"), Authorize(Roles = "CDB,Admin")]
+        [HttpGet("Total used fuel for logged pilot"), Authorize(Roles = "CDB,Admin")]
         public async Task<ActionResult<ListesFDL>> PilotusedFsum()
         {
             string? mat = User?.Identity?.Name;
